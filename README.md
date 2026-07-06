@@ -1,9 +1,129 @@
-# ClassicPlayBot 🎮
+# SuperClassicPlayBot 🎮
 
-**A modular Telegram gaming platform with a rich virtual economy and complex card game engines built on Python and aiogram 3.x.**
+**A production-grade Telegram gaming platform featuring 35+ games, a virtual economy, Telegram WebApp integration, and a clean modular Python architecture built on aiogram 3.x.**
 
 > [!NOTE]
-> This is a **showcase repository** containing documentation, architecture design, and features list for the private `ClassicPlayBot` engine.
+> This is a **showcase repository** — documentation, architecture overview, and feature catalogue for the private `SuperClassicPlayBot` engine.
+
+---
+
+## 💎 Engineering Excellence
+
+- **80+ automated tests** (Pytest) — unit, integration, and game-engine stress tests.
+- **Full state persistence** via Redis — bot restarts never lose active game sessions.
+- **CI/CD** — GitHub Actions runs Ruff + mypy linting and the full test suite on every PR.
+- **Clean Architecture** — strict separation: Telegram handlers / game engines (`core/games/`) / service layer (`core/services/`).
+- **Async-first** — `asyncio` throughout, SQLAlchemy 2.0 async ORM, aiogram 3.x.
+- **Telegram WebApp** — React + Vite + TypeScript frontend for rich in-browser games (Chess, Match-3, Mahjong, Battleship, Gartic Phone, Voxel Editor, Build Battle).
+- **Prometheus metrics** — built-in `/metrics` endpoint for production monitoring.
+- **i18n** — flat YAML locale files, full Ukrainian & English support.
+
+---
+
+## 🎮 Games Catalogue (35+)
+
+### 🃏 Card Games
+Durak (Classic & Pro) · Blackjack · Poker · Bridge · Thousand · Ochko · Scopa · High-Low · War
+
+### ♟️ Board & Strategy
+Chess *(WebApp)* · Checkers · Reversi · Gomoku · Connect Four · Minesweeper · Backgammon · Battleship *(WebApp)* · Breakthrough · Domino
+
+### 🧩 Casual & Creative
+Match-3 *(WebApp)* · Mahjong *(WebApp)* · Voxel Editor *(WebApp)* · Build Battle *(WebApp)* · Gartic Phone *(WebApp)* · Gallows · Bulls & Cows · Words · Kobza
+
+### 🎯 Quiz & Knowledge
+Guess the Flag · Italian Quiz / Signs / Words · Stalker Quiz · Music Quiz · Custom Quiz · Genshin
+
+### 🎰 Mini-games
+Casino · Kinder · Cplay (inline)
+
+---
+
+## 💰 Virtual Economy
+
+- **Currencies**: Gold 💰 · Gems 💎 · Bitcoin ₿ · Toncoin
+- **Shop**: Phones · Cars · Houses · Yachts · Businesses · Mining Farms · Power Plants
+- **Passive income**: businesses → hourly gold; farms → BTC; power plants → energy
+- **Social**: clans, RP commands, rich profiles with stats & avatar
+
+---
+
+## 📁 Architecture
+
+```mermaid
+graph TD
+    User((User)) <--> TG[Telegram API]
+    TG <--> Handlers[Handlers Layer]
+    Handlers <--> Svc[Core Services]
+    Svc <--> Redis[(Redis — State)]
+    Svc <--> Engine[Game Engines]
+    Engine <--> DB[(PostgreSQL / SQLite)]
+    User <--> WebApp[Telegram WebApp\nReact + Vite]
+    WebApp <--> Svc
+
+    subgraph "Core"
+        Engine
+        Svc
+    end
+```
+
+```
+SuperClassicPlayBot/
+├── src/
+│   ├── bot/                    # Entry point, startup/shutdown, Prometheus
+│   ├── core/
+│   │   ├── models/             # SQLAlchemy models (User, Inventory, …)
+│   │   ├── services/           # UserService, EconomyService, GameService …
+│   │   ├── games/              # 35+ game engines
+│   │   │   ├── base/           # Card, Deck, LobbyManager, GameEngine
+│   │   │   ├── chess/ durak/   # Engine examples
+│   │   │   └── …
+│   │   ├── middleware/         # Auth, throttling, i18n
+│   │   └── uikit/              # GamePresenter, shared UI components
+│   └── handlers/
+│       ├── economy/            # Shop, bonuses, inventory
+│       ├── games/              # One handler module per game
+│       ├── admin/              # Admin panel
+│       └── social/             # Clans, RP
+├── webapp-client/              # React + Vite + TypeScript WebApp
+│   └── src/games/
+│       ├── Chess · Match3 · Mahjong
+│       ├── Battleship · GarticPhone
+│       └── VoxelEditor · BuildBattle
+├── locales/                    # i18n YAML (uk, en)
+├── tests/                      # Pytest test suite (80+ tests)
+├── .github/workflows/          # CI/CD
+└── docker-compose.yml
+```
+
+---
+
+## 🛠️ Tech Stack
+
+| Layer | Technology |
+|-------|------------|
+| Bot framework | aiogram 3.24 |
+| ORM | SQLAlchemy 2.0 async |
+| Migrations | Alembic |
+| State | Redis 5.x |
+| Image processing | Pillow · rembg |
+| Chess | python-chess |
+| WebApp | React 18 + Vite + TypeScript |
+| Linting | Ruff · mypy |
+| Testing | Pytest · pytest-asyncio |
+| Monitoring | Prometheus |
+| Container | Docker + docker-compose |
+
+---
+
+## 📄 License
+
+MIT
+
+---
+
+*Built with ❤️ — 35+ games, full economy, WebApp integration.*
+
 
 ---
 

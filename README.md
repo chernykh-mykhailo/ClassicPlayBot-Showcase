@@ -136,6 +136,7 @@ This project is built using modern Python development best practices:
 *   **CI/CD Pipeline**: GitHub Actions are set up for automated testing (Linting + Testing) on every Pull Request.
 *   **Clean Architecture**: Separation between the Telegram interface layer (`handlers/`), game business logic engines (`core/games/`), and DB service layer (`core/services/`).
 *   **Performance First**: Built fully asynchronously (`asyncio`) and using optimized DB queries via SQLAlchemy 2.0.
+*   **Multilingual**: Full support for 🇺🇦 Ukrainian and 🇬🇧 English via YAML localization files.
 
 ---
 
